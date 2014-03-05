@@ -72,6 +72,7 @@ if ( !class_exists( 'SlickQuizFront' ) ) {
                     if ( $status && $status != self::NOT_PUBLISHED ) {
                         $out .= '
                             <script type="text/javascript">
+								var SlickQuiz = {};
                                 jQuery(document).ready(function($) {';
 
                         $out .= '
@@ -160,9 +161,11 @@ if ( !class_exists( 'SlickQuizFront' ) ) {
 
                                         $.ajax({
                                             type: "POST",
-                                            url: "' . esc_url( wp_nonce_url( site_url( "wp-admin/admin-ajax.php" ), "wp-admin/admin-ajax.php" ) ) . '",
-                                            data: {action: "save_quiz_score", json: JSON.stringify(json)}
+                                            url: "' . esc_url( wp_nonce_url( site_url( "wp-admin/admin-ajax.php" ), "save_quiz_score_{$quiz->id}" ) ) . '",
+                                            data: {action: "save_quiz_score", json: JSON.stringify(json)},
+											complete: function() { $( SlickQuiz ).trigger( "submit_quiz_complete" ); }
                                         });
+
                                     }';
 
                             // add username input if not logged in

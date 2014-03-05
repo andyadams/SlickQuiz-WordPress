@@ -103,6 +103,12 @@ if ( !class_exists( 'SlickQuizFunctions' ) ) {
         function save_quiz_score()
         {
             if ( isset( $_POST['json'] ) ) {
+				$json = json_decode( stripslashes( $_POST['json'] ) );
+				$quiz_id = $json->quiz_id;
+				if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'save_quiz_score_' . $quiz_id ) ) {
+					echo 'Something went wrong, please try again!';
+					return;
+				}
                 $this->save_score( $_POST['json'] );
             } else {
                 echo 'Something went wrong, please try again.';

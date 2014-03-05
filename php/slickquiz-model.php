@@ -270,6 +270,7 @@ if ( !class_exists( 'SlickQuizModel' ) ) {
             $set['createdDate'] = $now;
 
             $wpdb->insert( $db_name, $set );
+			do_action( 'slickquiz_save_score', $user_id, $data );
         }
 
         function delete_score( $id )
