@@ -294,7 +294,7 @@ if ( !class_exists( 'SlickQuizFront' ) ) {
 
             $out = $this->show_slickquiz( $id );
 
-            return apply_filters( 'slickquiz_shortcode_content', $out );
+            return apply_filters( 'slickquiz_shortcode_content', $out, $id );
         }
 
         function show_slickquiz( $id )
